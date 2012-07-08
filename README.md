@@ -1,9 +1,10 @@
 deep-green
 ==========
 
-to help you play Scrabble on Facebook
+Python 2.x (min 2.5) program to help you play Scrabble on Facebook.
+Obviously named after Deep Blue.
 
-Currently very much a WIP.
+Very much a WIP.
 
 Licensed under the MIT License.
 
