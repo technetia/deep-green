@@ -32,10 +32,7 @@ def powerset(word):
 
 def get_word_value(word):
     """Compute the Scrabble value of the given word (string)."""
-    value = 0
-    for letter in word.upper():
-        value += constants.TILE_VALUES[letter]
-    return value
+    return sum([constants.TILE_VALUES[letter] for letter in word.upper()])
 
 def get_word_choices(letters, blank_letters=None):
     """
