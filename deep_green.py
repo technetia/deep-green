@@ -6,6 +6,12 @@
 
 import sys
 import pm_utils as utils
+import pm_classes as classes
+
+def test_board():
+    b = classes.Board()
+    b.play_word([('A', False), ('S', False)], (4, 4), "down")
+    print b
 
 # sample client-side interface (placeholder until real one is created)
 # outputs results to stdout and prompt to stderr, so you can redirect
@@ -41,5 +47,5 @@ def main():
             print "%s: score of %s without using blanks" % (word, score)
     
 if __name__ == "__main__":
-    main()
+    test_board()
 

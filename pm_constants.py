@@ -1,9 +1,8 @@
 #! /usr/bin/env python
 # pm_constants.py
 
-from __future__ import with_statement
-
 # can be imported with from * if desired
+BLANK = ' '
 TILE_VALUES = {
     'A' : 1,
     'B' : 3,
@@ -31,9 +30,8 @@ TILE_VALUES = {
     'X' : 8,
     'Y' : 4,
     'Z' : 10,
-    ' ' : 0,
+    BLANK : 0,
 }
-BLANK = ' '
 LETTERS = sorted(TILE_VALUES.keys())
 LETTERS.remove(BLANK)
 
