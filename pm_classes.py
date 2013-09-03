@@ -8,7 +8,7 @@ class Tile(object):
     """Simple class representing a Scrabble letter tile."""
 
     def __init__(self, letter, blank=False):
-        self.letter = letter
+        self.letter = letter.upper()
         self.is_blank = blank
         if self.is_blank:
             self.value = constants.TILE_VALUES[constants.BLANK]
@@ -21,7 +21,8 @@ class Tile(object):
     def __str__(self):
         return (self.letter if not self.is_blank else self.letter.lower())
 
-    __hash__ = None
+    def __hash__(self):
+        return hash(self.letter + str(self.value))
 
 
 class Board(object):
@@ -31,19 +32,19 @@ class Board(object):
         self.grid = constants.SCRABBLE_BOARD
         self.grid_height = len(self.grid)
         self.grid_width = len(self.grid[0]) if self.grid_height > 0 else 0
-        self.tiles_in_play = [[None] * self.grid_width for i in range(self.grid_height)]
+        self.clear()
     
     def __repr__(self):
         return "Board()"
 
     def __str__(self):
-        s = "-" + ("--" * self.grid_width) + "\n"
+        s = "+" + ("-+" * self.grid_width) + "\n"
         for row in self.tiles_in_play:
             s += "|"
             for cell in row:
                 s += (str(cell) if cell is not None else " ") + "|"
             s += "\n"
-            s += "-" + ("--" * self.grid_width) + "\n"
+            s += "+" + ("-+" * self.grid_width) + "\n"
         return s
 
     __hash__ = None
@@ -51,6 +52,8 @@ class Board(object):
     def verify_word(self, word, start_pos):
         """
         Check that the word can be played from the given position.
+
+        See play_word for an explanation of the parameters.
 
         Returns a two-element tuple with each element specifying
         whether the word can be played (right, down), e.g.
@@ -64,7 +67,7 @@ class Board(object):
         status = [False, False]
 
         # TWL
-        if "".join([l[0] for l in word]) not in constants.TWL:
+        if "".join([l.letter for l in word]) not in constants.TWL:
             return tuple(status)
 
         # width
@@ -97,11 +100,11 @@ class Board(object):
          
         if direction == "right":
             for letter in word:
-                self.tiles_in_play[curr_row][curr_col] = Tile(*letter)
+                self.tiles_in_play[curr_row][curr_col] = letter
                 curr_col += 1
         elif direction == "down":
             for letter in word:
-                self.tiles_in_play[curr_row][curr_col] = Tile(*letter)
+                self.tiles_in_play[curr_row][curr_col] = letter
                 curr_row += 1
         
         return 0

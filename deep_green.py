@@ -10,7 +10,11 @@ import pm_classes as classes
 
 def test_board():
     b = classes.Board()
-    b.play_word([('A', False), ('S', False)], (4, 4), "down")
+    tile1 = classes.Tile('A', False)
+    tile2 = classes.Tile('S', False)
+    pos = (4, 4)
+    if b.verify_word([tile1, tile2], pos)[0]:
+        b.play_word([tile1, tile2], pos, "right")
     print b
 
 # sample client-side interface (placeholder until real one is created)
